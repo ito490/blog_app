@@ -22,6 +22,20 @@ class ArticlesController < ApplicationController
         end
     end
 
+    def edit
+        @article = Article.find(params[:id])
+    end
+
+    def update
+        @article = Article.find(params[:id])
+        if @article.update(article_params)
+            redirect_to article_path(@article), notice: '変更できました'
+        else
+            flash.now[:error] = '変更できませんでした'
+            render :edit
+        end
+    end
+
     private
     def article_params
         # puts '--------------------'
